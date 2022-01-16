@@ -1,0 +1,29 @@
+version: '3.9'
+services:
+  lynni_php:
+    container_name: 'lynni-php'
+    image: php:8-fpm
+    volumes:
+    - ./code:/var/www/html/code
+    networks:
+      - phpNet
+
+  lynni_phpweb:
+    container_name: 'lynni_phpweb'
+    image: nginx:alpine
+    ports:
+      - 8080:80
+    volumes:
+      - ./docker/nginx/sites:/etc/nginx/conf.d
+      - ./code:/var/www/html/code
+    networks:
+      - phpNet
+    
+
+networks:
+  phpNet:
+    driver: bridge
+
+  
+
+  
